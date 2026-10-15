@@ -48,7 +48,7 @@ const CONFIG = {
   musicDescription: "I choose This One for U. Press play when you're ready. 🎵",
   // Optional audio YOU have the right to use. Put the file in /assets and write its name,
   // e.g. "our-song.mp3". Leave "" to show the no-audio fallback instead.
-  audioFile: "our-song.mp3",
+  audioFile: "our-song.m4a",
   // Optional legal link, e.g. the official artist/YouTube page. Leave "" to hide it.
   songLink: "",
   songLinkLabel: "Listen on an official source ↗",
