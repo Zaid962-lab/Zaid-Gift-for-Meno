@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffd6e0">
+  <title>A Little Gift For You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+  <div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+
+  <div class="progress" id="progress" aria-label="Progress" hidden>
+    <span class="progress__bar" id="progressBar"></span>
+  </div>
+
+  <main class="stage" id="stage">
+
+    <!-- SCREEN 1: WELCOME -->
+    <section class="screen" id="screen-welcome" data-screen="welcome" aria-labelledby="welcomeTitle">
+      <div class="card card--center">
+        <div class="envelope" id="envelope" aria-hidden="true">
+          <div class="envelope__back"></div>
+          <div class="envelope__letter"><span>&#9825;</span></div>
+          <div class="envelope__front"></div>
+          <div class="envelope__flap"></div>
+          <div class="envelope__seal">&#9829;</div>
+        </div>
+        <h1 class="script" id="welcomeTitle"></h1>
+        <p class="lead" id="welcomeSub"></p>
+        <button class="btn btn--primary" id="openBtn" type="button">Open Your Gift 💌</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: QUESTION -->
+    <section class="screen" id="screen-question" data-screen="question" aria-labelledby="questionTitle" hidden>
+      <div class="card card--center">
+        <h2 class="script" id="questionTitle"></h2>
+        <div class="qa-area" id="qaArea">
+          <button class="btn btn--primary" id="yesBtn" type="button"></button>
+          <button class="btn btn--ghost" id="noBtn" type="button"></button>
+        </div>
+        <p class="response" id="questionResponse" role="status" aria-live="polite"></p>
+        <button class="btn btn--primary" id="questionNext" type="button" hidden>Continue 💗</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: SECRET CODE -->
+    <section class="screen" id="screen-code" data-screen="code" aria-labelledby="codeTitle" hidden>
+      <div class="card card--glass card--center">
+        <div class="lock" id="lock" aria-hidden="true">
+          <svg viewBox="0 0 64 72" width="72" height="80">
+            <path class="lock__shackle" d="M18 32V22a14 14 0 0 1 28 0v10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <rect x="8" y="30" width="48" height="36" rx="10" fill="currentColor"/>
+            <path d="M32 59s-9-5.6-9-11.2a4.8 4.8 0 0 1 9-2.3 4.8 4.8 0 0 1 9 2.3C41 53.4 32 59 32 59z" fill="#fff"/>
+          </svg>
+        </div>
+        <h2 class="script" id="codeTitle">A Secret Is Waiting…</h2>
+        <p class="lead">Enter the secret code to unlock a surprise.</p>
+        <form id="codeForm" novalidate autocomplete="off">
+          <label class="sr-only" for="codeInput">Secret code</label>
+          <input class="code-input" id="codeInput" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="• • •" maxlength="12" aria-describedby="codeMsg">
+          <div class="keypad" id="keypad">
+            <button type="button" class="key" data-key="1">1</button>
+            <button type="button" class="key" data-key="2">2</button>
+            <button type="button" class="key" data-key="3">3</button>
+            <button type="button" class="key" data-key="4">4</button>
+            <button type="button" class="key" data-key="5">5</button>
+            <button type="button" class="key" data-key="6">6</button>
+            <button type="button" class="key" data-key="7">7</button>
+            <button type="button" class="key" data-key="8">8</button>
+            <button type="button" class="key" data-key="9">9</button>
+            <button type="button" class="key key--util" data-key="clear" aria-label="Clear">C</button>
+            <button type="button" class="key" data-key="0">0</button>
+            <button type="button" class="key key--util" data-key="back" aria-label="Delete last digit">&#9003;</button>
+          </div>
+          <p class="hint" id="codeHint"></p>
+          <p class="response" id="codeMsg" role="status" aria-live="polite"></p>
+          <button class="btn btn--primary" id="unlockBtn" type="submit">Unlock 🔓</button>
+        </form>
+        <button class="btn btn--link" type="button" data-back>&larr; Back</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: UNLOCKED SURPRISE -->
+    <section class="screen" id="screen-surprise" data-screen="surprise" aria-labelledby="surpriseTitle" hidden>
+      <div class="card card--glass card--center">
+        <div class="big-heart" aria-hidden="true">💖</div>
+        <h2 class="script" id="surpriseTitle">Unlocked!</h2>
+        <p class="message" id="surpriseText"></p>
+        <button class="btn btn--primary" type="button" data-next>Continue 🎵</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: MUSIC -->
+    <section class="screen" id="screen-music" data-screen="music" aria-labelledby="songTitle" hidden>
+      <div class="card card--center">
+        <div class="vinyl-wrap" aria-hidden="true">
+          <div class="vinyl" id="vinyl"><div class="vinyl__label">&#9829;</div></div>
+        </div>
+        <div class="eq" id="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <h2 class="script" id="songTitle"></h2>
+        <p class="artist" id="songArtist"></p>
+        <p class="message" id="songLine"></p>
+        <p class="note" id="songNote"></p>
+
+        <div class="player" id="player" hidden>
+          <button class="btn btn--round" id="playBtn" type="button" aria-label="Play">&#9654;</button>
+          <div class="player__track">
+            <input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek" disabled>
+            <div class="player__time"><span id="timeNow">0:00</span><span id="timeTotal">0:00</span></div>
+          </div>
+        </div>
+        <p class="note" id="audioFallback" hidden></p>
+        <a class="btn btn--link" id="songLink" target="_blank" rel="noopener noreferrer" hidden>Listen on an official source ↗</a>
+
+        <div class="nav-row">
+          <button class="btn btn--ghost" type="button" data-back>&larr; Back</button>
+          <button class="btn btn--primary" type="button" data-next>Next 💌</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 6: LETTER -->
+    <section class="screen" id="screen-letter" data-screen="letter" aria-labelledby="letterTitle" hidden>
+      <div class="card card--center">
+        <h2 class="script" id="letterTitle">One Last Thing… 💌</h2>
+        <p class="lead">I wrote this just for you.</p>
+        <button class="btn btn--primary" id="letterOpen" type="button" aria-expanded="false" aria-controls="letterPaper">Open the Letter</button>
+        <div class="letter" id="letterPaper" hidden>
+          <p class="dev-warning" id="devWarning" hidden></p>
+          <div class="letter__body" id="letterBody"></div>
+          <p class="letter__sign" id="letterSign"></p>
+        </div>
+        <div class="nav-row">
+          <button class="btn btn--ghost" type="button" data-back>&larr; Back</button>
+          <button class="btn btn--primary" id="letterNext" type="button" hidden>Finish 💗</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 7: CLOSING -->
+    <section class="screen" id="screen-closing" data-screen="closing" aria-labelledby="closingTitle" hidden>
+      <div class="card card--center">
+        <div class="big-heart" aria-hidden="true">💗</div>
+        <h2 class="script" id="closingTitle">Forever Yours</h2>
+        <p class="message" id="closingText"></p>
+        <button class="btn btn--primary" id="replayBtn" type="button">Replay the Gift 🔁</button>
+      </div>
+    </section>
+
+  </main>
+
+  <audio id="audio" preload="none"></audio>
+  <noscript><p class="noscript">This little gift needs JavaScript turned on to open. 💗</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
